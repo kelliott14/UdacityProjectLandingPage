@@ -61,22 +61,27 @@
 
 const sectionHeaders = document.querySelectorAll('.landing__container')
 const navBarList = document.getElementById('navbar__list')
-console.log(navBarList)
 
+// builds the navbar items
 for(let i = 0; i < sectionHeaders.length; i++){
     const idLink = sectionHeaders[i].parentElement.id;
     const headerText = sectionHeaders[i].querySelector('.sectionHeader').innerHTML;
     
     const newLi = document.createElement('li');
-    const newA = document.createElement('a');
-
-    newA.textContent = headerText;
-    newA.setAttribute('href', "#" + idLink);
-    newLi.appendChild(newA);
-    navBarList.appendChild(newLi)
-
     
+    newLi.textContent = headerText;
+    newLi.setAttribute('class', 'navItems');
+    navBarList.appendChild(newLi)    
 }
+
+// scrolls to section on navbar item click
+document.addEventListener('click', function(event) {
+    const navClick = event.path[0].innerHTML
+    if (event.target.tagName === "LI") {
+        const goTo = document.querySelector('[data-nav = "' + navClick + '"]');   
+        goTo.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});   
+    }
+})
 
 
 
