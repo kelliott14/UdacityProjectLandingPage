@@ -59,14 +59,14 @@
 
 // Set sections as active
 
-const sectionHeaders = document.querySelectorAll('.landing__container')
-const navBarList = document.getElementById('navbar__list')
+const sectionHeaders = document.querySelectorAll('.landing__container');
+const navBarList = document.getElementById('navbar__list');
+const footer = document.querySelector('.page__footer');
+const allSections = document.querySelectorAll('section')
 
 // builds the navbar items
 for(let i = 0; i < sectionHeaders.length; i++){
-    const idLink = sectionHeaders[i].parentElement.id;
     const headerText = sectionHeaders[i].querySelector('.sectionHeader').innerHTML;
-    
     const newLi = document.createElement('li');
     
     newLi.textContent = headerText;
@@ -83,9 +83,32 @@ document.addEventListener('click', function(event) {
     }
 })
 
+// changes active state
+const isInView = function(elem) {
+    const distance = elem.getBoundingClientRect();
+
+    return (
+        (window.innerHeight || document.documentElement.clientHeight) >= distance.top &&
+        (window.innerHeight || document.documentElement.clientHeight) <= distance.bottom
+        );
+};
+
+window.addEventListener('scroll', function(event) {
+    allSections.forEach(element => {
+        if (isInView(element)) {
+            element.setAttribute('class', 'landing__container active')
+        } else {
+            element.setAttribute('class', 'landing__container inactive')
+        }
+    });
+}, false);
 
 
+//section 3 top 87
+//section 3 bottom 1051
+//section 4 top 1051
+//section 4 bottom 2015
 
-
+//1045
 
 
