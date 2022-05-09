@@ -21,7 +21,7 @@ Scrolling to the section on click of the navbar item. It's built using
 - innerHTML
 - scrollIntoView
 
-## In Viewport
+## Viewport
 
 Active section is built using
 - getBoundingClientRect
