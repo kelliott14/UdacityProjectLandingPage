@@ -78,7 +78,7 @@ section {
 }
 
 .navbar__menu .menu__link {
-    display: block;
+    /* display: block; */
     padding: 1em;
     font-weight: bold;
     text-decoration: none;
@@ -225,3 +225,9 @@ section.active .landing__container::after {
 	}
 }
 
+@media only screen and (max-width: 550px) {
+    .navbar__menu .menu__link {
+        font-size: 0.8em;
+        
+    }
+}

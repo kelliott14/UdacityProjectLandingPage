@@ -13,66 +13,27 @@
  * 
 */
 
-/**
- * Comments should be present at the beginning of each procedure and class.
- * Great to have comments before crucial code sections within the procedure.
-*/
-
-/**
- * Define Global Variables
- * 
-*/
-
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
+//variables
 const sectionHeaders = document.querySelectorAll('.landing__container');
-const navBarList = document.getElementById('navbar__list');
+const navBarList = document.createElement('ul');
+const navBarMenu = document.querySelector('.navbar__menu')
 const footer = document.querySelector('.page__footer');
-const allSections = document.querySelectorAll('section')
+const allSections = document.querySelectorAll('section');
+
 
 // builds the navbar items
+navBarList.setAttribute('class','navbar__list');
+
 for(let i = 0; i < sectionHeaders.length; i++){
     const headerText = sectionHeaders[i].querySelector('.sectionHeader').innerHTML;
     const newLi = document.createElement('li');
     
     newLi.textContent = headerText;
-    newLi.setAttribute('class', 'navItems');
-    navBarList.appendChild(newLi)    
+    newLi.setAttribute('class', 'navItems menu__link');
+    navBarList.appendChild(newLi);   
 }
+
+navBarMenu.append(navBarList)
 
 // scrolls to section on navbar item click
 document.addEventListener('click', function(event) {
@@ -83,32 +44,30 @@ document.addEventListener('click', function(event) {
     }
 })
 
-// changes active state
-const isInView = function(elem) {
-    const distance = elem.getBoundingClientRect();
 
+// checks what is in the viewport and changes the section to active
+const allNavbarLi = document.querySelectorAll('li');
+
+function isInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    
     return (
-        (window.innerHeight || document.documentElement.clientHeight) >= distance.top &&
-        (window.innerHeight || document.documentElement.clientHeight) <= distance.bottom
-        );
-};
+        rect.top >= 0 &&
+        rect.bottom >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)  &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
 
-window.addEventListener('scroll', function(event) {
-    allSections.forEach(element => {
-        if (isInView(element)) {
-            element.setAttribute('class', 'landing__container active')
-        } else {
-            element.setAttribute('class', 'landing__container inactive')
-        }
+window.addEventListener('scroll', function() {
+    
+    allSections.forEach(section => {
+        if (isInViewport(section)) {
+            section.setAttribute('class', 'active');
+            }
+                else {
+                    section.setAttribute('class', 'inactive');
+        };
     });
-}, false);
 
-
-//section 3 top 87
-//section 3 bottom 1051
-//section 4 top 1051
-//section 4 bottom 2015
-
-//1045
-
-
+});

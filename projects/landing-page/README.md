@@ -2,12 +2,32 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [NavBar Build](#Build)
+* [NavBar Scroll](#Scroll)
+* [In Viewport](#Viewport)
 
-## Instructions
+## Build
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+NavBar is built using 
+- setAttribute
+- innerHTML
+- textContent
+- appendChild
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Scroll
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+Scrolling to the section on click of the navbar item. It's built using
+- addEventListener
+- innerHTML
+- scrollIntoView
+
+## In Viewport
+
+Active section is built using
+- getBoundingClientRect
+- addEventListener
+- setAttribute
+- window.innerHeight
+- window.innerWidth
+
+
