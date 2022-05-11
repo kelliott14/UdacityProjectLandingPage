@@ -21,6 +21,7 @@ const footer = document.querySelector('.page__footer');
 const allSections = document.querySelectorAll('section');
 
 
+
 // builds the navbar items
 navBarList.setAttribute('class','navbar__list');
 
@@ -50,7 +51,10 @@ const allNavbarLi = document.querySelectorAll('li');
 
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
-    
+    console.log("---------------------------")
+    console.log('if ' + rect.top + ' is >=0')
+    console.log('if ' + rect.bottom + ' is >=0 & <= ' + window.innerHeight)
+    console.log(rect.bottom - rect.top)
     return (
         rect.top >= 0 &&
         rect.bottom >= 0 &&
@@ -58,16 +62,32 @@ function isInViewport(element) {
         rect.right <= (window.innerWidth || document.documentElement.clientWidth)
     );
 }
+const allNavItems = document.querySelectorAll('.navItems');
+
+function isActiveLi(textInput) {
+    allNavItems.forEach(item => {
+        if (item.innerHTML == textInput) {
+            item.setAttribute('class', 'navItems menu__link active')
+        } else {
+            item.setAttribute('class', 'navItems menu__link')
+        }
+    })
+}
 
 window.addEventListener('scroll', function() {
     
     allSections.forEach(section => {
         if (isInViewport(section)) {
+            console.log(section)
             section.setAttribute('class', 'active');
+            const activeSection = section.querySelector('h2').innerHTML
+            isActiveLi(activeSection)
             }
                 else {
                     section.setAttribute('class', 'inactive');
         };
     });
+
+
 
 });
