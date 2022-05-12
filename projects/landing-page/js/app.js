@@ -16,7 +16,7 @@
 //variables
 const sectionHeaders = document.querySelectorAll('.landing__container');
 const navBarList = document.createElement('ul');
-const navBarMenu = document.querySelector('.navbar__menu')
+const navBarMenu = document.querySelector('.navbar__menu');
 const footer = document.querySelector('.page__footer');
 const allSections = document.querySelectorAll('section');
 
@@ -32,9 +32,9 @@ for(let i = 0; i < sectionHeaders.length; i++){
     newLi.textContent = headerText;
     newLi.setAttribute('class', 'navItems menu__link');
     navBarList.appendChild(newLi);   
-}
+};
 
-navBarMenu.append(navBarList)
+navBarMenu.append(navBarList);
 
 // scrolls to section on navbar item click
 document.addEventListener('click', function(event) {
@@ -42,52 +42,52 @@ document.addEventListener('click', function(event) {
     if (event.target.tagName === "LI") {
         const goTo = document.querySelector('[data-nav = "' + navClick + '"]');   
         goTo.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});   
-    }
-})
+    };
+});
 
 
-// checks what is in the viewport and changes the section to active
+// checks what is in the viewport
 const allNavbarLi = document.querySelectorAll('li');
 
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
-    console.log("---------------------------")
-    console.log('if ' + rect.top + ' is >=0')
-    console.log('if ' + rect.bottom + ' is >=0 & <= ' + window.innerHeight)
-    console.log(rect.bottom - rect.top)
-    return (
-        rect.top >= 0 &&
-        rect.bottom >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)  &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
+  
+    return (rect.bottom >= 0 && 
+        rect.right >= 0 && 
+        rect.top >= 0 && 
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) && 
+        rect.left <= (window.innerWidth || document.documentElement.clientWidth));
 }
+
+// applies active class on nav item
 const allNavItems = document.querySelectorAll('.navItems');
 
 function isActiveLi(textInput) {
     allNavItems.forEach(item => {
         if (item.innerHTML == textInput) {
-            item.setAttribute('class', 'navItems menu__link active')
+            item.setAttribute('class', 'navItems menu__link active');
         } else {
             item.setAttribute('class', 'navItems menu__link')
-        }
-    })
-}
+        };
+    });
+};
 
+// scroll event listener
 window.addEventListener('scroll', function() {
     
     allSections.forEach(section => {
-        if (isInViewport(section)) {
-            console.log(section)
-            section.setAttribute('class', 'active');
-            const activeSection = section.querySelector('h2').innerHTML
-            isActiveLi(activeSection)
+        const sectionParagraph = section.querySelectorAll('p');         
+        const activeSection = section.querySelector('h2').innerHTML;
+
+        for (let para of sectionParagraph){
+            if (isInViewport(para)) {
+                section.setAttribute('class', 'active');
+                isActiveLi(activeSection);
+            break;
             }
-                else {
-                    section.setAttribute('class', 'inactive');
-        };
+            else {
+                section.setAttribute('class', 'inactive');
+            };
+        };        
     });
-
-
-
 });
