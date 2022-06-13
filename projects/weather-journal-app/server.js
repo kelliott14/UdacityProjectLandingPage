@@ -28,4 +28,31 @@ const server = app.listen(port, listening);
 function listening(){
     console.log("server running")
     console.log("running on localhost:" + port)
+};
+
+
+// Callback to debug
+
+// Initialize all route with a callback function
+
+// Callback function to complete GET '/all'
+app.get('all', sendData);
+
+function sendData (request, response) {
+    response.send(projectData);
+};
+
+// Post Route
+app.post('/addData', addData);
+
+function addData(req, res) { 
+    let data = req.body;
+    let newEntry = {
+        temp: data.temp,
+        date: data.date,
+        content: data.content
+    }
+    const returnedProjectData = Object.assign(projectData, newEntry)
+    console.log(returnedProjectData)
+
 }
