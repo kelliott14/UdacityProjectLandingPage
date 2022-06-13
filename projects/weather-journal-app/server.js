@@ -31,28 +31,25 @@ function listening(){
 };
 
 
-// Callback to debug
-
-// Initialize all route with a callback function
+const weatherData = [];
 
 // Callback function to complete GET '/all'
-app.get('all', sendData);
+app.get('/all', getData);
 
-function sendData (request, response) {
-    response.send(projectData);
+function getData (req, res) {
+    res.send(weatherData);
 };
 
 // Post Route
 app.post('/addData', addData);
 
 function addData(req, res) { 
-    let data = req.body;
-    let newEntry = {
-        temp: data.temp,
-        date: data.date,
-        content: data.content
+    newEntry = {
+        temp: req.body.temp,
+        date: req.body.date,
+        content: req.body.content
     }
-    const returnedProjectData = Object.assign(projectData, newEntry)
-    console.log(returnedProjectData)
 
+    weatherData.push(newEntry)
+    res.send(weatherData)
 }
