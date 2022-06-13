@@ -37,7 +37,7 @@ const weatherData = [];
 app.get('/all', getData);
 
 function getData (req, res) {
-    res.send(weatherData);
+    res.send(projectData);
 };
 
 // Post Route
@@ -49,7 +49,8 @@ function addData(req, res) {
         date: req.body.date,
         content: req.body.content
     }
+    
+    const updatedObject = Object.assign(projectData, newEntry)
+    res.send(updatedObject)
 
-    weatherData.push(newEntry)
-    res.send(weatherData)
 }

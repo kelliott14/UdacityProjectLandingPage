@@ -59,11 +59,10 @@ const updateUI = async () => {
     const request = await fetch('/all');
     try{
       const allData = await request.json();
-      let num = allData.length - 1;
-      document.getElementById('date').innerHTML = allData[num].date;
-      document.getElementById('temp').innerHTML = allData[num].temp;
-      document.getElementById('content').innerHTML = allData[num].content;
-
+      document.getElementById('temp').innerHTML = Math.round(allData.temp)+ ' degrees';
+      document.getElementById('content').innerHTML = allData.content;
+      document.getElementById("date").innerHTML =allData.date;
+    
       document.getElementById('zip').value = "";
       document.getElementById('feelings').value = "";
   
