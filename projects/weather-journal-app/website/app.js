@@ -4,15 +4,24 @@ const apiKey = config.apiKey;
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = (d.getMonth()+1) +'.'+ d.getDate()+'.'+ d.getFullYear();
 
 // fetch API data
 document.getElementById('generate').addEventListener('click', performAction);
 
-function performAction(e){
-    const newZip =  document.getElementById('zip').value;
-    const newContent = document.getElementById('feelings').value;
+//validate zip
+function validateZipCode(elementValue){
+  var zipCodePattern = /^\d{5}$|^\d{5}-\d{4}$/;
+   return zipCodePattern.test(elementValue);
+}
 
+
+//click action
+function performAction(e){
+  const newZip =  document.getElementById('zip').value;
+  const newContent = document.getElementById('feelings').value;
+  
+  if (validateZipCode(newZip)) {
     getWeather(baseURL, newZip, apiKey)
     .then(function(data) {
         postData('/addData', {
@@ -21,6 +30,10 @@ function performAction(e){
             content: newContent
          }).then(updateUI());
     })
+  } else {
+    document.getElementById('errorMsg').innerText = "invalid zip, please try again";
+  }
+
 };
 
 const getWeather = async (baseURL, zip, key)=>{
@@ -65,6 +78,7 @@ const updateUI = async () => {
     
       document.getElementById('zip').value = "";
       document.getElementById('feelings').value = "";
+      document.getElementById('errorMsg').innerText = "";
   
     }catch(error){
       console.log("error", error);
